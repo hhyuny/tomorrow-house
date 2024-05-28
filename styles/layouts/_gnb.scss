@@ -1,10 +1,11 @@
 .gnb {
   position: relative;
+  background-color: $white;
   border-bottom: 1px solid $border;
 
   &-wrapper {
     @include flexbox(between);
-    height: 50px;
+    height: $gnb-height-sm - 1px;
   }
 
   &-right {
@@ -44,6 +45,10 @@
   }
 
   @include responsive(T) {
+    &-wrapper {
+      height: $gnb-height-md - 1px;
+    }
+
     &-left {
       @include flexbox(start);
     }
@@ -77,10 +82,6 @@
       }
     }
 
-    &-wrapper {
-      height: 80px;
-    }
-
     .logo {
       position: static;
       margin-right: 32px;
@@ -112,7 +113,7 @@
 
       .search-history {
         position: absolute;
-        top: calc(100% + 8px); // 부모 높이의 100%
+        top: calc(100% + 8px); // 100%의 의미: 부모 높이의 100%
         left: 0;
         display: none;
         width: 100%;
