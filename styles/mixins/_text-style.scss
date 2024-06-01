@@ -44,7 +44,7 @@
   }
 
   @if ($size == 14) {
-    @include text-style-13;
+    @include text-style-14;
   }
 
   @if ($size == 16) {
@@ -62,8 +62,4 @@
   @if (type-of($color) == color) {
     color: $color;
   }
-}
-
-p {
-  @include text-style(24, red);
 }

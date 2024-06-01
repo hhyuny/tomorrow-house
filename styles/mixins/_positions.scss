@@ -6,7 +6,7 @@
   }
 }
 
-@mixin pos-center-x($type: absolute) {
+@mixin pos-center-y($type: absolute) {
   @if ($type == fixed or $type == absolute) {
     position: $type;
     top: 50%;
@@ -19,6 +19,6 @@
     position: $type;
     top: 50%;
     left: 50%;
-    transform: translateY(-50%, -50%);
+    transform: translate(-50%, -50%);
   }
 }
