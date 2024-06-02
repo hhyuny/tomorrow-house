@@ -33,11 +33,34 @@
       &:active {
         color: $blue;
       }
+    }
+
+    .badge {
+      margin-left: 4px;
+      color: $secondary;
+    }
+  }
+
+  @include responsive(T) {
+    height: 54px;
+    background-color: $background;
+    border-bottom: 0;
+
+    &-item {
+      button {
+        @include text-style(16);
+        height: 54px;
+      }
 
       .badge {
-        margin-left: 4px;
-        color: $secondary;
+        margin-left: 8px;
       }
+    }
+  }
+
+  @include responsive(D) {
+    &-item button:hover {
+      color: $blue;
     }
   }
 }
