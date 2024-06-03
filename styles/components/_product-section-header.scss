@@ -17,7 +17,7 @@
   .text-button,
   .icon-button {
     @include pos-center-y;
-    right: -#{$grid-margin}px;
+    right: -#{$grid-margin};
 
     &:active {
       opacity: 0.4;
