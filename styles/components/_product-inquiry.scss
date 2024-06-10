@@ -1,0 +1,35 @@
+.product-inquiry {
+  .inquiry-empty {
+    @include text-style(16, $secondary);
+    padding: 48px 0;
+    text-align: center;
+  }
+
+  @include mobile-only {
+    padding-bottom: 0;
+
+    &.is-open {
+      padding-bottom: 20px;
+
+      .product-section-header .text-button,
+      .product-section-content {
+        display: block;
+      }
+
+      .product-section-header .icon-button {
+        display: none;
+      }
+    }
+
+    .product-section-header .text-button,
+    .product-section-content {
+      display: none;
+    }
+  }
+
+  @include responsive(T) {
+    .inquiry-empty {
+      padding: 24px 0;
+    }
+  }
+}
