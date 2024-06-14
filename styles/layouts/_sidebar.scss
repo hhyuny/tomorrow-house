@@ -6,7 +6,7 @@
   top: 0;
   left: 0;
   z-index: $sidebar-level;
-  width: sidebar-width;
+  width: $sidebar-width;
   height: 100vh;
   padding: 32px 20px;
   overflow-y: auto;
