@@ -5,14 +5,20 @@ const TOP_HEADER_DESKTOP = 80 + 50 + 54
 const TOP_HEADER_MOBILE = 50 + 40 + 40
 
 let currentActiveTab = productTab.querySelector('.is-active')
+let disableUpdating = false
 
 function toggleActiveTab() {
   const tabItem = this.parentNode
 
   if (currentActiveTab !== tabItem) {
+    disableUpdating = true
     tabItem.classList.add('is-active')
     currentActiveTab.classList.remove('is-active')
     currentActiveTab = tabItem
+
+    setTimeout(() => {
+      disableUpdating = false
+    }, 1000)
   }
 }
 
@@ -63,6 +69,9 @@ function detectTabPanelPosition() {
 }
 
 function updateActiveTabOnScroll() {
+  if (disableUpdating) {
+    return
+  }
   // 유저의 스크롤 위치에 따라서 activeTab 업데이트
   // 1. 현재 유저가 얼마만큼 스크롤을 했는지 -> window.scrollY
   // 2. 각 tabPanel y축 위치 -> productTabpanelPositionMap
@@ -84,12 +93,24 @@ function updateActiveTabOnScroll() {
     newActiveTab = productTabButtonList[0]
   }
 
+  // 추가 로직: 끝까지 스크롤을 한 경우 -> newActiveTab = productTabButtonList[4]
+  // window.scrollY + window.innerHeight === body의 전체 height
+  // window.innerWidth < 1200 -> orderCta 존재 -> 마진 바텀에 56px 존재
+  const bodyHeight =
+    document.body.offsetHeight + (window.innerWidth < 1200 ? 56 : 0)
+  if (window.scrollY + window.innerHeight === bodyHeight) {
+    newActiveTab = productTabButtonList[4]
+  }
+
   if (newActiveTab) {
     newActiveTab = newActiveTab.parentNode
 
     if (newActiveTab !== currentActiveTab) {
       newActiveTab.classList.add('is-active')
-      currentActiveTab.classList.remove('is-active')
+      if (currentActiveTab !== null) {
+        currentActiveTab.classList.remove('is-active')
+      }
+
       currentActiveTab = newActiveTab
     }
   }
