@@ -20,13 +20,12 @@ function scrollToTabPanel() {
   const tabPanelId = this.parentNode.getAttribute('aria-labelledby')
   const tabPanel = document.querySelector(`#${tabPanelId}`)
 
-  // 얼마나 스크롤해야 하는지
   const scrollAmount =
     tabPanel.getBoundingClientRect().top -
     (window.innerWidth >= 768 ? TOP_HEADER_DESKTOP : TOP_HEADER_MOBILE)
 
   window.scrollBy({
-    top: scrollAmount, // 얼마나 스크롤을 시켜야 하는가
+    top: scrollAmount,
     behavior: 'smooth',
   })
 }
@@ -35,3 +34,33 @@ productTabButtonList.forEach((button) => {
   button.addEventListener('click', toggleActiveTab)
   button.addEventListener('click', scrollToTabPanel)
 })
+
+// 스크롤 이벤트 핸들러를 만들기 전에 사전정보가 필요함
+// 사전정보: 각 tabPanel의 y축 위치(문서의 시작점에서부터 얼마나 아래에 있는지)
+// 어떤 요소의 y축 위치 = window.scrollY + element.getBoundingClientRect().top
+
+const productTabPanelIdList = [
+  'product-spec',
+  'product-review',
+  'product-inquiry',
+  'product-shipment',
+  'product-recommendation',
+]
+
+const productTabPanelList = productTabPanelIdList.map((panelId) => {
+  const tabPanel = document.querySelector(`#${panelId}`)
+  return tabPanel
+})
+
+const productTabpanelPositionMap = {}
+
+function detectTabPanelPosition() {
+  productTabPanelList.forEach((panel) => {
+    const id = panel.getAttribute('id')
+    const position = window.scrollY + panel.getBoundingClientRect().top
+    productTabpanelPositionMap[id] = position
+  })
+}
+
+window.addEventListener('load', detectTabPanelPosition)
+window.addEventListener('resize', detectTabPanelPosition)
